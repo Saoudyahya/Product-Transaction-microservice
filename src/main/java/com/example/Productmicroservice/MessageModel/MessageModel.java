@@ -3,30 +3,47 @@ package com.example.Productmicroservice.MessageModel;
 
 import java.util.Date;
 
-public class SupplierMessage {
+public class MessageModel {
 
 
     private String MessageId;
     private String Message;
     private Date MassageDate ;
+    private String action;
 
-    public SupplierMessage(String messageId, String message, Date massageDate) {
+
+
+    public MessageModel(String messageId, String message, Date massageDate, String action) {
         MessageId = messageId;
         Message = message;
         MassageDate = massageDate;
+        this.action = action;
+
     }
 
-    public SupplierMessage() {
-    }
 
     @Override
     public String toString() {
-        return "SupplierMessage{" +
+        return "ProductMessage{" +
                 "MessageId='" + MessageId + '\'' +
                 ", Message='" + Message + '\'' +
                 ", MassageDate=" + MassageDate +
+                ", action='" + action + '\'' +
                 '}';
     }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public MessageModel() {
+    }
+
+
 
     public String getMessageId() {
         return MessageId;
