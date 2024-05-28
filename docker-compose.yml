@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+    container_name: Productmicroservice
+    ports:
+      - "9091:9091"
+    depends_on:
+      - db-product
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-product:3306/Product-microservice
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://localhost:8761/eureka/
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: 1.0
+
+  db-product:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: Product-microservice
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
